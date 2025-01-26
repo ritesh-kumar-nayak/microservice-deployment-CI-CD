@@ -3,7 +3,9 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- none
+  paths:
+    include:
+      - result/*
 
 resources:
 - repo: self
@@ -11,29 +13,39 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '6ce42fb4-bf98-4730-b985-5cc8fbe3b235'
-  imageRepository: 'votingapplication'
+  imageRepository: 'resultapp'                # only for result app
   containerRegistry: 'votingappacr001.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/result/Dockerfile'
+  dockerfilePath: '$(Build.SourcesDirectory)/result/Dockerfile'   # Docker file path for result app
   tag: '$(Build.BuildId)'
 
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+pool: Default
 
 stages:
-- stage: Build
-  displayName: Build and push stage
+- stage: ImageBuild
+  displayName: Build Docker Image
   jobs:
   - job: Build
     displayName: Build
-    pool:
-      vmImage: $(vmImageName)
     steps:
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
+        containerRegistry: '$(dockerRegistryServiceConnection)'
+        repository: '$(imageRepository)'
+        command: 'build'
+        Dockerfile: 'result/Dockerfile'
+        tags: '$(tag)'
+- stage: ImagePush
+  displayName: Push Docker Image
+  jobs:
+    - job: Push
+      displayName: Push Image
+      steps:
+      - task: Docker@2
+        inputs:
+          containerRegistry: '$(dockerRegistryServiceConnection)'
+          repository: '$(imageRepository)'
+          command: 'buildAndPush'
+          Dockerfile: 'result/Dockerfile'
+          tags: '$(tag)'
