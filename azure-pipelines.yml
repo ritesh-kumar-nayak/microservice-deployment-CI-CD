@@ -24,7 +24,7 @@ pool:
 
 stages:
 - stage: ImageBuild
-  displayName: Build Docker Image
+  displayName: Build Result Image
   jobs:
   - job: Build
     displayName: Build
@@ -38,7 +38,7 @@ stages:
         Dockerfile: 'result/Dockerfile'
         tags: '$(tag)'
 - stage: ImagePush
-  displayName: Push Docker Image
+  displayName: Push Result Image
   jobs:
     - job: Push
       displayName: Push Image
