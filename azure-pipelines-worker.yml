@@ -61,6 +61,6 @@ stages:
       steps:
       - task: ShellScript@2
         inputs:
-          scriptPath: 'scripts/updatek8manifests'
+          scriptPath: 'scripts/updatek8manifests.sh'
           args: 'worker $(imageRepository) $(tag)'
         displayName: Update worker app Deployment Manifests
