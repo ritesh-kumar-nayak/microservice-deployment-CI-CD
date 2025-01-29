@@ -15,7 +15,7 @@ spec:
         app: result
     spec:
       containers:
-      - image: votingappacr001/resultapp:90
+      - image: votingappacr001.azurecr.io/resultapp:91
         name: result
         ports:
         - containerPort: 80
