@@ -56,12 +56,12 @@ stages:
   displayName: Update result app Deployment Manifests
   jobs:
     - job: Update
-      displayName: Update vote app Deployment Manifests
+      displayName: Update result app Deployment Manifests
       steps:
       - task: ShellScript@2
         inputs:
           scriptPath: 'scripts/updatek8manifests'
           args: 'result $imageRepository $tag'
-        displayName: Update vote app Deployment Manifests
+        displayName: Update result app Deployment Manifests
           
           # docker pull votingappacr001.azurecr.io/resultapp:79

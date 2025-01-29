@@ -52,3 +52,15 @@ stages:
         command: 'push'
         tags: '$(tag)'
         # docker pull votingappacr001.azurecr.io/workerapplication:83
+
+- stage: Update
+  displayName: Update worker app Deployment Manifests
+  jobs:
+    - job: Update
+      displayName: Update worker app Deployment Manifests
+      steps:
+      - task: ShellScript@2
+        inputs:
+          scriptPath: 'scripts/updatek8manifests'
+          args: 'worker $imageRepository $tag'
+        displayName: Update worker app Deployment Manifests
