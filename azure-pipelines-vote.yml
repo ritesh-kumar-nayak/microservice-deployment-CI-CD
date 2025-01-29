@@ -60,6 +60,6 @@ stages:
       - task: ShellScript@2
         inputs:
           scriptPath: 'scripts/updatek8manifests'
-          args: 'vote $imageRepository $tag'
+          args: 'vote $(imageRepository) $(tag)'
         displayName: Update vote app Deployment Manifests
             #docker pull votingappacr001.azurecr.io/votingapplication:80
