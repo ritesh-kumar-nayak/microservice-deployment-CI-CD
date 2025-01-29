@@ -18,4 +18,4 @@ spec:
       - image: votingappacr001.azurecr.io/workerapplication:93
         name: worker
       ImagePullSecrets:
-        - name: acrsecret
+      - name: acrsecret
