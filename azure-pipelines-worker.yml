@@ -51,3 +51,4 @@ stages:
         repository: '$(imageRepository)'
         command: 'push'
         tags: '$(tag)'
+        # docker pull votingappacr001.azurecr.io/workerapplication:83
