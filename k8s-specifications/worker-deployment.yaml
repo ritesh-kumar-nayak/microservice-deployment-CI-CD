@@ -15,7 +15,7 @@ spec:
         app: worker
     spec:
       containers:
-      - image: votingappacr001/workerapplication:87
+      - image: votingappacr001/workerapplication:88
         name: worker
       ImagePullSecrets:
         - name: acrsecret
